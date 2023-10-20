@@ -18,7 +18,7 @@ export const App = () => {
           </>
         }
       >
-        <Route path="/" element={<HomePage />} />
+        <Route index element={<HomePage />} />
         <Route path="/shippingships" element={<Ship />} />
         <Route path="/haulingships" element={<Hauler />} />
         <Route path="/docks" element={<Dock />} />
