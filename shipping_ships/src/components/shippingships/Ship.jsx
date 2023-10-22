@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getShipsWithHaulers } from "../../services/getShipsWithHaulers";
+import { deleteSingleShip } from "../../services/deleteSingleShip";
 
 export const Ship = () => {
   const [allShipsAndHaulers, setAllShipsAndHaulers] = useState([]);
@@ -9,6 +10,21 @@ export const Ship = () => {
       setAllShipsAndHaulers(shipAndHaulerObj);
     });
   }, []);
+
+  const handleDelete = (itemId) => {
+    deleteSingleShip(itemId)
+      .then(() => {
+        // After successfully deleting the item, update the state by filtering out the deleted item.
+        setAllShipsAndHaulers((prevShipsAndHaulers) =>
+          prevShipsAndHaulers.filter(
+            (shipWithHauler) => shipWithHauler.id !== itemId
+          )
+        );
+      })
+      .catch((error) => {
+        console.error("Error deleting item: ", error);
+      });
+  };
 
   return (
     <>
@@ -24,7 +40,7 @@ export const Ship = () => {
                 <div>
                   <button
                     className="deleteButton"
-                    // onClick={() => handleDeleteItemClick(noteObj.id)}
+                    onClick={() => handleDelete(shipWithHauler.id)}
                   >
                     Delete Item
                   </button>
@@ -37,4 +53,3 @@ export const Ship = () => {
     </>
   );
 };
-//TODO: Need to finish Delete function - 1)Make Delete Service 2)Delete function 3)do onClick
