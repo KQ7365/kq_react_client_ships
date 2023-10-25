@@ -18,8 +18,15 @@ export const Dock = () => {
           {allDocksWithHaulers.map((dockWithHauler) => {
             return (
               <div key={dockWithHauler.id}>
-                Dock Location:{dockWithHauler.location} Hauler:
-                {dockWithHauler.hauler.name}
+                Dock Location:{dockWithHauler.location}
+                {dockWithHauler?.haulers.map((hauler) => {
+                  return (
+                    <p key={hauler.id}>
+                      Hauler:
+                      {hauler.name}
+                    </p>
+                  );
+                })}
               </div>
             );
           })}

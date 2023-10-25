@@ -5,6 +5,7 @@ import { NavBar } from "./components/nav/NavBar";
 import { HomePage } from "./components/homepage/HomePage";
 import { Hauler } from "./components/haulers/Hauler";
 import { Dock } from "./components/docks/Dock";
+import { HaulerDetails } from "./details/haulerDetails";
 
 export const App = () => {
   return (
@@ -22,6 +23,9 @@ export const App = () => {
         <Route path="/shippingships" element={<Ship />} />
         <Route path="/haulingships" element={<Hauler />} />
         <Route path="/docks" element={<Dock />} />
+        <Route path="edit">
+          <Route path=":haulersId" element={<HaulerDetails />} />
+        </Route>
       </Route>
     </Routes>
   );
