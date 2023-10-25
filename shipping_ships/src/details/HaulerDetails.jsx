@@ -7,6 +7,7 @@ import { editHauler } from "../services/editHauler";
 export const HaulerDetails = () => {
   const [item, setItem] = useState([]);
   const [allDocks, setAllDocks] = useState([]);
+  const [currentDockId, setCurrentDockId] = useState(0);
 
   const { haulersId } = useParams();
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ export const HaulerDetails = () => {
   useEffect(() => {
     getHaulerById(haulersId).then((itemObj) => {
       setItem(itemObj);
+      setCurrentDockId(itemObj.dock_id);
     });
     getDocks().then((dockObj) => {
       setAllDocks(dockObj);
@@ -58,16 +60,17 @@ export const HaulerDetails = () => {
       <fieldset>
         <label htmlFor="dock">Dock:</label>
         <select
-          value={item.dock_Id}
+          value={currentDockId}
           name="dockId"
           id="dock"
           type="select"
           className="form-control"
-          //   onChange={(e) => {
-          //     const itemCopy = { ...item };
-          //     itemCopy.note = e.target.value;
-          //     setItem(itemCopy);
-          //   }}
+          onChange={(e) => {
+            const itemCopy = { ...item };
+            itemCopy.dock_id = e.target.value;
+            setItem(itemCopy);
+            setCurrentDockId(e.target.value);
+          }}
         >
           <option value={0}>Select a Dock</option>
           {allDocks.map((dock) => {
